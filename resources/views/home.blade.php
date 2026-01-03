@@ -96,8 +96,8 @@
             </div>
 
             <div class="hidden md:flex items-center gap-4">
-                <a href="#" class="font-bold text-sm hover:text-mint-500">Masuk</a>
-                <a href="#"
+                <a href="{{ route('login') }}" class="font-bold text-sm hover:text-mint-500">Masuk</a>
+                <a href="{{ route(name: 'register') }}"
                     class="bg-slate-900 text-white px-6 py-2.5 rounded-full font-bold text-sm hover:bg-slate-800 transition-all hover:scale-105">
                     Daftar Sekarang
                 </a>
