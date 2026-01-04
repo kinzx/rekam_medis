@@ -1,6 +1,5 @@
 <x-app-layout>
-    <div class="min-h-screen bg-mint-50 py-12 px-4 sm:px-6 lg:px-8 font-sans">
-
+    <div class="min-h-screen bg-mint-50 pt-32 pb-12 px-4 sm:px-6 lg:px-8 font-sans">
         <div class="max-w-7xl mx-auto mb-10">
             <h1 class="text-3xl md:text-4xl font-extrabold text-slate-900">
                 Halo, <span class="text-mint-600">{{ Auth::user()->name }}</span>! 👋
@@ -133,7 +132,7 @@
                             <button type="button"
                                 class="text-slate-500 font-bold hover:text-slate-800 text-sm">Batal</button>
                             <button type="submit"
-                                class="bg-mint-500 hover:bg-mint-600 text-white px-8 py-3 rounded-xl font-bold shadow-lg shadow-mint-500/30 hover:shadow-mint-500/40 hover:-translate-y-1 transition-all">
+                                class="bg-slate-900 hover:bg-mint-600 text-white px-8 py-3 rounded-xl font-bold shadow-lg shadow-mint-500/30 hover:shadow-mint-500/40 hover:-translate-y-1 transition-all">
                                 Ambil Antrian
                             </button>
                         </div>
