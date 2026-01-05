@@ -8,6 +8,7 @@
 </p>
 
 ## About Rekam Medis
+ehe,alo
 
 This is a Medical Record management system built with the Laravel framework. It provides role-based access for different users like Admin, Doctor, and Pharmacist.
 
