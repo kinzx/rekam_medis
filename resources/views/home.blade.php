@@ -129,7 +129,7 @@
                                 stroke-linejoin="round">
                                 <circle cx="12" cy="12" r="10"></circle>
                             </svg>
-                        </span> hospital <br>
+                        </span> medis <br>
                         support in a <br>
                         platform.
                     </h1>
