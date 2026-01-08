@@ -16,7 +16,12 @@
                 {{ __('Dashboard') }}
             </a>
 
-            <a href="#" class="text-slate-600 hover:text-mint-500 transition-colors duration-300">Layanan</a>
+            <!-- 👇 TAMBAHKAN LINK LAYANAN DI SINI -->
+            <a href="{{ route('layanan.index') }}"
+                class="transition-colors duration-300 {{ request()->routeIs('layanan.*') ? 'text-mint-500 font-bold' : 'text-slate-600 hover:text-mint-500' }}">
+                Layanan
+            </a>
+
             <a href="#" class="text-slate-600 hover:text-mint-500 transition-colors duration-300">Dokter</a>
         </div>
 
@@ -75,9 +80,12 @@
                 <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" class="rounded-xl">
                     {{ __('Dashboard') }}
                 </x-responsive-nav-link>
-                <x-responsive-nav-link href="#" class="rounded-xl">
+
+                <!-- 👇 TAMBAHKAN LINK LAYANAN DI MENU MOBILE -->
+                <x-responsive-nav-link :href="route('layanan.index')" :active="request()->routeIs('layanan.*')" class="rounded-xl">
                     Layanan
                 </x-responsive-nav-link>
+
                 <x-responsive-nav-link href="#" class="rounded-xl">
                     Dokter
                 </x-responsive-nav-link>
