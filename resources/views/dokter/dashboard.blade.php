@@ -3,7 +3,7 @@
 
         <div class="max-w-7xl mx-auto mb-8">
             <h1 class="text-3xl font-extrabold text-slate-900">
-                Halo, <span class="text-mint-600">Dr. {{ Auth::user()->name }}</span> 🩺
+                Halo, <span class="text-mint-600">dr. {{ Auth::user()->name }}</span> 🩺
             </h1>
             <p class="text-slate-500 font-medium">Siap melayani pasien hari ini?</p>
         </div>
@@ -27,14 +27,17 @@
                                 <p class="text-slate-700 font-medium text-lg">"Demam tinggi sudah 3 hari, disertai pusing hebat dan mual."</p>
                             </div>
 
-                            <div class="flex gap-4">
-                                <button class="flex-1 bg-slate-900 text-white py-4 rounded-2xl font-bold shadow-lg hover:bg-slate-800 transition-all">
-                                    Input Rekam Medis
-                                </button>
-                                <button class="px-6 py-4 rounded-2xl font-bold border-2 border-slate-100 hover:bg-slate-50 text-slate-400 hover:text-slate-600">
-                                    Lewati
-                                </button>
-                            </div>
+                         <div class="flex gap-4">
+    <button class="flex-1 bg-slate-900 text-white py-4 rounded-2xl font-bold shadow-lg hover:bg-slate-800 transition-all">
+        Input Rekam Medis
+    </button>
+    <a href="{{ route('layanan.index') }}" class="px-6 py-4 rounded-2xl font-bold bg-mint-600 text-white hover:bg-mint-500 shadow-lg transition-all text-center">
+        Kelola Layanan
+    </a>
+    <a href="#" class="px-6 py-4 rounded-2xl font-bold border-2 border-slate-100 hover:bg-slate-50 text-slate-400 hover:text-slate-600">
+        Lewati
+    </a>
+</div>
                         </div>
                     </div>
                 </div>
@@ -66,7 +69,7 @@
                             </div>
                         </div>
 
-                         <div class="flex items-center gap-4 p-4 rounded-2xl hover:bg-mint-50 transition-colors cursor-pointer border border-transparent hover:border-mint-100">
+                        <div class="flex items-center gap-4 p-4 rounded-2xl hover:bg-mint-50 transition-colors cursor-pointer border border-transparent hover:border-mint-100">
                             <div class="font-extrabold text-xl text-slate-300 w-8">04</div>
                             <div class="w-12 h-12 rounded-full bg-slate-100 flex items-center justify-center font-bold text-slate-400">?</div>
                             <div>
