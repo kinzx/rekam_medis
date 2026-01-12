@@ -65,7 +65,7 @@
             <div class="bg-white p-6 rounded-[2rem] shadow-sm border border-slate-100 relative overflow-hidden group hover:-translate-y-1 transition-transform opacity-60">
                 <div class="relative z-10">
                     <p class="text-slate-500 font-bold text-sm">Total Pasien</p>
-                    <h3 class="text-4xl font-extrabold text-slate-900 mt-2">-</h3>
+                    <h3 class="text-4xl font-extrabold text-slate-900 mt-2">{{ $totalPasien }}</h3>
                     <p class="text-slate-400 text-xs font-bold mt-2">Data Pasien</p>
                 </div>
                 <div class="absolute -right-4 -bottom-4 w-24 h-24 bg-pink-50 rounded-full flex items-center justify-center">
@@ -76,7 +76,7 @@
              <div class="bg-white p-6 rounded-[2rem] shadow-sm border border-slate-100 relative overflow-hidden group hover:-translate-y-1 transition-transform opacity-60">
                 <div class="relative z-10">
                     <p class="text-slate-500 font-bold text-sm">Total Obat</p>
-                    <h3 class="text-4xl font-extrabold text-slate-900 mt-2">-</h3>
+                    <h3 class="text-4xl font-extrabold text-slate-900 mt-2">{{ $totalObat }}</h3>
                     <p class="text-slate-400 text-xs font-bold mt-2">Data Obat</p>
                 </div>
                 <div class="absolute -right-4 -bottom-4 w-24 h-24 bg-blue-50 rounded-full flex items-center justify-center">
