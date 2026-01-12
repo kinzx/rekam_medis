@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Queue;    // <--- TAMBAHKAN INI
+use App\Models\Medicine; // <--- TAMBAHKAN INI
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 
@@ -14,8 +16,10 @@ class SuperAdminController extends Controller
     {
         // Ambil semua user kecuali diri sendiri (superadmin yang sedang login)
         $users = User::where('id', '!=', auth()->id())->latest()->get();
+        $totalPasien = Queue::count();
+        $totalObat = Medicine::count();
 
-        return view('admin.dashboard', compact('users'));
+        return view('admin.dashboard', compact('users', 'totalPasien', 'totalObat'));
     }
 
     // 2. TAMBAH USER BARU

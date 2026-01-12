@@ -1,5 +1,5 @@
 <x-app-layout>
-    <div class="min-h-screen bg-mint-50 pt-24 pb-12 px-4 sm:px-6 lg:px-8 font-sans">
+    <div class="min-h-screen bg-mint-50 pt-32 pb-12 px-4 sm:px-6 lg:px-8 font-sans">
         <div class="max-w-4xl mx-auto">
 
             {{-- Header --}}
@@ -14,7 +14,7 @@
             </div>
 
             <div class="space-y-6">
-                @foreach ($history as $item)
+                @forelse($history as $item)
                     <div
                         class="bg-white rounded-[2rem] p-6 shadow-sm border border-slate-100 flex flex-col md:flex-row gap-6 hover:shadow-md transition-all">
 
@@ -48,13 +48,11 @@
                             </div>
                         </div>
                     </div>
-                @endforeach
-
-                @if ($history->isEmpty())
+                @empty
                     <div class="text-center py-12 bg-white rounded-[2rem] border border-slate-100 border-dashed">
                         <p class="text-slate-400 font-bold">Belum ada riwayat pemeriksaan.</p>
                     </div>
-                @endif
+                @endforelse
             </div>
 
         </div>

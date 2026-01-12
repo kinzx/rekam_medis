@@ -106,18 +106,7 @@
                         </div>
                         <h4 class="font-bold text-slate-800 text-sm">Riwayat</h4>
                     </a>
-                    <a href="{{ route('resep.index') }}"
-                        class="bg-white p-5 rounded-[1.5rem] shadow-sm hover:shadow-md transition-all hover:-translate-y-1 border border-transparent hover:border-mint-200 group flex flex-col items-center text-center">
-                        <div
-                            class="w-10 h-10 bg-pink-50 text-pink-600 rounded-full flex items-center justify-center mb-3 group-hover:bg-pink-600 group-hover:text-white transition-colors">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2">
-                                </path>
-                            </svg>
-                        </div>
-                        <h4 class="font-bold text-slate-800 text-sm">Resep Digital</h4>
-                    </a>
+
                 </div>
 
                 @if (isset($upcomingSchedule) && $upcomingSchedule)

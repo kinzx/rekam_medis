@@ -53,8 +53,8 @@ Route::middleware(['auth'])->group(function () {
 
     // Fitur Pasien (User)
     Route::get('/riwayat', [DashboardController::class, 'riwayat'])->name('riwayat.index');
-    Route::get('/resep', [DashboardController::class, 'resep'])->name('resep.index');
-    
+    // Route::get('/resep', [DashboardController::class, 'resep'])->name('resep.index');
+
     // Fitur Layanan (Hanya aktifkan jika Controller sudah ada)
     /* Route::resource('layanan', ServiceController::class)
         ->names([

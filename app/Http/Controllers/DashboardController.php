@@ -7,14 +7,14 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Queue;
 use App\Models\Appointment;
-use App\Models\Medicine;
+use App\Models\Medicine; // <--- Pastikan ini ada
+
 class DashboardController extends Controller
 {
     public function index()
     {
         $user = Auth::user();
         $role = strtolower($user->role); // Pakai huruf kecil biar aman
-        $data['medicines'] = Medicine::all();
 
         // 1. SIAPKAN DATA DEFAULT
         $data = [
@@ -24,8 +24,24 @@ class DashboardController extends Controller
             'myQueue' => null,
             'currentServing' => null,
             'upcomingSchedule' => null,
-            'polis' => [],
-            'doctors' => []
+            'doctors' => [],
+
+            // PERBAIKAN UTAMA: Masukkan medicines di sini agar semua role (termasuk dokter) dapat datanya
+            'medicines' => Medicine::all(),
+
+            // Data Poli Manual
+            'polis' => [
+                (object) ['id' => 'Poli Umum', 'name' => 'Poli Umum'],
+                (object) ['id' => 'Poli Gigi', 'name' => 'Poli Gigi'],
+                (object) ['id' => 'Poli Anak', 'name' => 'Poli Anak'],
+                (object) ['id' => 'Poli Kandungan', 'name' => 'Poli Kandungan (Obgyn)'],
+                (object) ['id' => 'Poli Mata', 'name' => 'Poli Mata'],
+                (object) ['id' => 'Poli THT', 'name' => 'Poli THT'],
+                (object) ['id' => 'Poli Penyakit Dalam', 'name' => 'Poli Penyakit Dalam'],
+                (object) ['id' => 'Poli Kulit', 'name' => 'Poli Kulit & Kelamin'],
+                (object) ['id' => 'Poli Jantung', 'name' => 'Poli Jantung'],
+                (object) ['id' => 'Poli Syaraf', 'name' => 'Poli Syaraf'],
+            ]
         ];
 
         // ==========================================================
@@ -45,29 +61,32 @@ class DashboardController extends Controller
                 ->orderBy('created_at', 'asc')
                 ->get();
 
-            // PENTING: Arahkan ke folder 'dokter/dashboard.blade.php'
+            // Kirim $data (yang sudah berisi medicines dari atas) ke view
             return view('dokter.dashboard', $data);
         }
 
         // ==========================================================
-        // 3. JIKA ADMIN / APOTEKER
+        // 3. JIKA SUPERADMIN
         // ==========================================================
         elseif ($role === 'superadmin') {
-            // PERBAIKAN: Ambil data users agar tidak error "Undefined variable $users"
+            // 1. Ambil Data User
             $users = User::where('id', '!=', $user->id)->latest()->get();
 
-            // Kirim data users ke view
-            return view('admin.dashboard', compact('users'));
-        } elseif ($role === 'apoteker') {
-            return view('apoteker.dashboard'); // Pastikan file ini ada
+            // 2. TAMBAHAN: Hitung Total agar tidak error "Undefined variable"
+            $totalPasien = Queue::count();
+            $totalObat = Medicine::count();
+
+            // 3. Kirim ke View (Jangan lupa masukkan variabel baru ke compact)
+            return view('admin.dashboard', compact('users', 'totalPasien', 'totalObat'));
         }
 
         // ==========================================================
-        // 4. JIKA PASIEN (USER BIASA) - DEFAULT
+        // 4. JIKA ADMIN KLINIK (USER) - DEFAULT
         // ==========================================================
+        // Catatan: Jika role 'user' (Admin Klinik) masuk sini, dia akan dapat data default
         else {
 
-            // A. Ambil Antrean Saya
+            // A. Ambil Antrean Saya (Jika User ini iseng daftar antrean sendiri)
             if (class_exists(Queue::class)) {
                 $data['myQueue'] = Queue::with('doctor')
                     ->where('user_id', $user->id)
@@ -84,42 +103,18 @@ class DashboardController extends Controller
                     ->first();
             }
 
-            // C. Jadwal
-            if (class_exists(Appointment::class)) {
-                $data['upcomingSchedule'] = Appointment::where('user_id', $user->id)
-                    ->where('visit_date', '>', now())
-                    ->orderBy('visit_date', 'asc')
-                    ->first();
-            }
-
-            // D. DATA UNTUK FORM (MANUAL ARRAY)
-            // Tambahkan sebanyak apapun poli yang Anda mau di sini
-            $data['polis'] = [
-                (object) ['id' => 'Poli Umum', 'name' => 'Poli Umum'],
-                (object) ['id' => 'Poli Gigi', 'name' => 'Poli Gigi'],
-                (object) ['id' => 'Poli Anak', 'name' => 'Poli Anak'],
-                (object) ['id' => 'Poli Kandungan', 'name' => 'Poli Kandungan (Obgyn)'],
-                (object) ['id' => 'Poli Mata', 'name' => 'Poli Mata'],
-                (object) ['id' => 'Poli THT', 'name' => 'Poli THT'],
-                (object) ['id' => 'Poli Penyakit Dalam', 'name' => 'Poli Penyakit Dalam'],
-                (object) ['id' => 'Poli Kulit', 'name' => 'Poli Kulit & Kelamin'],
-                (object) ['id' => 'Poli Jantung', 'name' => 'Poli Jantung'],
-                (object) ['id' => 'Poli Syaraf', 'name' => 'Poli Syaraf'],
-            ];
-
-            // E. List Dokter
+            // C. List Dokter (Untuk Form Pendaftaran)
             $data['doctors'] = User::where('role', 'dokter')->get();
 
-            // PENTING: Arahkan ke file 'dashboard.blade.php' (milik User)
             return view('dashboard', $data);
         }
     }
+
     // HALAMAN RIWAYAT BEROBAT
     public function riwayat()
     {
         $user = Auth::user();
 
-        // Ambil antrean yang statusnya sudah 'completed' (selesai)
         $history = Queue::with(['doctor', 'medicines'])
             ->where('user_id', $user->id)
             ->where('status', 'completed')
@@ -134,11 +129,10 @@ class DashboardController extends Controller
     {
         $user = Auth::user();
 
-        // Ambil antrean selesai yang punya data obat
         $prescriptions = Queue::with(['doctor', 'medicines'])
             ->where('user_id', $user->id)
             ->where('status', 'completed')
-            ->whereHas('medicines') // Hanya yang ada obatnya
+            ->whereHas('medicines')
             ->latest()
             ->get();
 
